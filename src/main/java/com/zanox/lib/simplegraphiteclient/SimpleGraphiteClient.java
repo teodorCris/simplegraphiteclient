@@ -35,7 +35,7 @@ public class SimpleGraphiteClient {
 	 *  
 	 * @param metrics the metrics as key-value-pairs
 	 */
-	public void sendMetrics(Map<String, Integer> metrics) {
+	public void sendMetrics(Map<String, Number> metrics) {
 		sendMetrics(metrics, getCurrentTimestamp());
 	}
 
@@ -45,13 +45,13 @@ public class SimpleGraphiteClient {
 	 * @param metrics the metrics as key-value-pairs
 	 * @param timeStamp the timestamp
 	 */
-	public void sendMetrics(Map<String, Integer> metrics, long timeStamp) {
+	public void sendMetrics(Map<String, Number> metrics, long timeStamp) {
 		try {
 			Socket socket = createSocket();
 			OutputStream s = socket.getOutputStream();
 			PrintWriter out = new PrintWriter(s, true);
-			for (Map.Entry<String, Integer> metric: metrics.entrySet()) {
-				out.printf("%s %d %d%n", metric.getKey(), metric.getValue(), timeStamp);	
+			for (Map.Entry<String, Number> metric: metrics.entrySet()) {
+				out.printf("%s %s %d%n", metric.getKey(), metric.getValue(), timeStamp);	
 			}			
 			out.close();
 			socket.close();
@@ -85,7 +85,7 @@ public class SimpleGraphiteClient {
 	 */
 	@SuppressWarnings("serial")
 	public void sendMetric(final String key, final int value, long timeStamp) {		
-		sendMetrics(new HashMap<String, Integer>() {{
+		sendMetrics(new HashMap<String, Number>() {{
 			put(key, value);
 		}}, timeStamp);
 	}
