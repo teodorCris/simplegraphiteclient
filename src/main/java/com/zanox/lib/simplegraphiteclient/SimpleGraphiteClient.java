@@ -70,7 +70,7 @@ public class SimpleGraphiteClient {
 	 * 
 	 * @throws GraphiteException if writing to graphite fails
 	 */
-	public void sendMetric(String key, int value) {
+	public void sendMetric(String key, Number value) {
 		sendMetric(key, value, getCurrentTimestamp());
 	}
 	
@@ -84,7 +84,7 @@ public class SimpleGraphiteClient {
 	 * @throws GraphiteException if writing to graphite fails 
 	 */
 	@SuppressWarnings("serial")
-	public void sendMetric(final String key, final int value, long timeStamp) {		
+	public void sendMetric(final String key, final Number value, long timeStamp) {		
 		sendMetrics(new HashMap<String, Number>() {{
 			put(key, value);
 		}}, timeStamp);
